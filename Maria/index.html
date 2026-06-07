@@ -3,21 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Персональные материалы</title>
+    <title>Персональные материалы — Юлия</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
     <style>
-        body { background: #030712; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; padding: 40px 20px; max-width: 600px; margin: 0 auto; }
-        h1 { color: #fef3c7; font-family: Georgia, serif; font-weight: 300; border-bottom: 1px solid #78350f; padding-bottom: 15px; }
-        .grid { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
-        a { color: #34d399; text-decoration: none; display: flex; justify-content: space-between; padding: 16px; background: #111827; border: 1px solid #1f2937; transition: all 0.3s; }
-        a:hover { background: #064e3b; border-color: #059669; color: #fff; transform: translateY(-2px); }
-        .loading { color: #9ca3af; font-style: italic; }
+        :root {
+            --ink: #1a1410;
+            --paper: #f5f0e8;
+            --gold: #b8962e;
+            --gold-light: #d4b05a;
+            --slate: #2e3a4a;
+            --dust: #c9bfb0;
+            --accent: #7a3b2e;
+            --line: rgba(184,150,46,0.25);
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--serif);
+            font-size: 18px;
+            line-height: 1.75;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 80% 10%, rgba(184,150,46,0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 15% 90%, rgba(122,59,46,0.05) 0%, transparent 50%);
+            padding: 40px 20px;
+        }
+
+        /* ── DECORATIVE BORDER ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 12px;
+            border: 1px solid var(--line);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* ── ORNAMENTAL HEADER ── */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            position: relative;
+        }
+
+        .khokhlov {
+            display: block;
+            width: 100px;
+            margin: 0 auto 20px;
+            opacity: 0.18;
+        }
+
+        .eyebrow {
+            font-family: var(--sans);
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.02em;
+            color: var(--slate);
+            line-height: 1.2;
+        }
+
+        .rule {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        .rule::before, .rule::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .rule-diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        /* ── MAIN LAYOUT ── */
+        main {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        /* ── EXERCISE LINKS (CARDS) ── */
+        .grid a {
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: white;
+            border: 1px solid var(--line);
+            box-shadow: 2px 2px 0 rgba(184,150,46,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .grid a:hover {
+            background: var(--slate);
+            border-color: var(--slate);
+            color: var(--paper);
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 12px rgba(46,58,74,0.15);
+        }
+
+        .grid a span:last-child {
+            color: var(--gold);
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .grid a:hover span:last-child {
+            color: var(--gold-light);
+            transform: translateX(4px);
+        }
+
+        .loading, .error-msg {
+            text-align: center;
+            font-style: italic;
+            color: var(--dust);
+            font-size: 1.1rem;
+            padding: 40px 0;
+        }
+        
+        .error-msg {
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
-    <h1>Ваши персональные материалы</h1>
-    <div id="lista-exercicios" class="grid">
-        <span class="loading">Загрузка списка упражнений...</span>
-    </div>
+
+    <header>
+        <svg class="khokhlov" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="20" y="20" width="80" height="80" stroke="#b8962e" stroke-width="1"/>
+            <rect x="35" y="35" width="50" height="50" stroke="#b8962e" stroke-width="0.5"/>
+            <line x1="20" y1="60" x2="100" y2="60" stroke="#b8962e" stroke-width="0.5"/>
+            <line x1="60" y1="20" x2="60" y2="100" stroke="#b8962e" stroke-width="0.5"/>
+            <circle cx="60" cy="60" r="12" stroke="#b8962e" stroke-width="1"/>
+            <circle cx="60" cy="60" r="3" fill="#b8962e"/>
+        </svg>
+
+        <p class="eyebrow">Личный Кабинет Студента</p>
+        <h1>Ваши персональные<br>материалы</h1>
+        <div class="rule"><div class="rule-diamond"></div></div>
+    </header>
+
+    <main>
+        <div id="lista-exercicios" class="grid">
+            <span class="loading">Загрузка списка упражнений...</span>
+        </div>
+    </main>
 
     <script>
         // CONFIGURAÇÃO RELEVANTE:
@@ -27,14 +196,14 @@
 
         async function carregarMateriais() {
             try {
-                // 1. Vai buscar o conteúdo principal da pasta do aluno via API do GitHub
+                // 1. Procura o conteúdo da pasta do aluno via API do GitHub
                 const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${pastaAluno}`);
                 const items = await response.json();
                 
                 const container = document.getElementById('lista-exercicios');
                 container.innerHTML = "";
 
-                // 2. Filtra apenas o que for diretório/pasta e ordena alfabeticamente
+                // 2. Filtra apenas subpastas (exercícios) e ordena
                 const folders = items
                     .filter(item => item.type === 'dir')
                     .sort((a, b) => a.name.localeCompare(b.name));
@@ -44,24 +213,23 @@
                     return;
                 }
 
-                // 3. Para cada pasta, vamos descobrir o ficheiro HTML lá dentro de forma assíncrona
+                // 3. Procura os ficheiros HTML dentro de cada subpasta
                 for (const folder of folders) {
                     try {
                         const folderResponse = await fetch(folder.url);
                         const folderItems = await folderResponse.json();
 
-                        // Procura o primeiro ficheiro .html dentro da subpasta
                         const htmlFile = folderItems.find(item => item.name.endsWith('.html'));
 
                         if (htmlFile) {
                             const link = document.createElement('a');
                             
-                            // Cria o link direto apontando de forma limpa para o teu servidor do GitHub Pages
-                            link.href = `https://${username}.github.io/${repo}/${pastaAluno}/${folder.name}/${htmlFile.name}`;
+                            // MODIFICAÇÃO CONCLUÍDA: Usa agora a rota camuflada pelo Netlify do teu próprio domínio
+                            link.href = `/materiais/${pastaAluno}/${folder.name}/${htmlFile.name}`;
                             link.target = "_blank";
                             
-                            // O texto do link será o nome do ficheiro HTML sem o ".html" no fim
-                            const nomeExercicio = htmlFile.name.replace('.html', '');
+                            // Normaliza o nome do exercício removendo a extensão .html
+                            const nomeExercicio = htmlFile.name.replace('.html', '').replace(/-/g, ' ');
                             link.innerHTML = `<span>${nomeExercicio}</span> <span>→</span>`;
                             
                             container.appendChild(link);
@@ -71,7 +239,7 @@
                     }
                 }
             } catch (e) {
-                document.getElementById('lista-exercicios').innerText = "Ошибка загрузки списка материалов.";
+                document.getElementById('lista-exercicios').innerHTML = "<span class='error-msg'>Ошибка загрузки списка материалов.</span>";
             }
         }
         carregarMateriais();

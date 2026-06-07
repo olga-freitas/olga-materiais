@@ -224,8 +224,8 @@
                         if (htmlFile) {
                             const link = document.createElement('a');
                             
-                            // Link direto e limpo usando o teu GitHub Pages funcional
-                            link.href = `https://${username}.github.io/${repo}/${pastaAluno}/${folder.name}/${htmlFile.name}`;
+                            // MODIFICAÇÃO CONCLUÍDA: Usa agora a rota camuflada pelo Netlify do teu próprio domínio
+                            link.href = `/materiais/${pastaAluno}/${folder.name}/${htmlFile.name}`;
                             link.target = "_blank";
                             
                             // Normaliza o nome do exercício removendo a extensão .html
