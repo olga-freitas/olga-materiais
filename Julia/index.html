@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональные материалы</title>
+    <style>
+        body { background: #030712; color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; padding: 40px 20px; max-width: 600px; margin: 0 auto; }
+        h1 { color: #fef3c7; font-family: Georgia, serif; font-weight: 300; border-bottom: 1px solid #78350f; padding-bottom: 15px; }
+        .grid { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }
+        a { color: #34d399; text-decoration: none; display: flex; justify-content: space-between; padding: 16px; background: #111827; border: 1px solid #1f2937; transition: all 0.3s; }
+        a:hover { background: #064e3b; border-color: #059669; color: #fff; transform: translateY(-2px); }
+        .loading { color: #9ca3af; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Ваши персональные материалы</h1>
+    <div id="lista-exercicios" class="grid">
+        <span class="loading">Загрузка списка упражнений...</span>
+    </div>
+
+    <script>
+        // CONFIGURAÇÃO RELEVANTE:
+        const username = "O-TEU-UTILIZADOR-DO-GITHUB"; // Escreve aqui o teu username do GitHub
+        const repo = "olga-materiais";
+        const pastaAluno = "Julia"; // Pasta deste aluno específico
+
+        async function carregarMateriais() {
+            try {
+                // 1. Vai buscar o conteúdo principal da pasta do aluno
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${pastaAluno}`);
+                const items = await response.json();
+                
+                const container = document.getElementById('lista-exercicios');
+                container.innerHTML = "";
+
+                // 2. Filtra apenas o que for diretório/pasta e ordena alfabeticamente (01, 02, 03 garantem a ordem cronológica)
+                const folders = items
+                    .filter(item => item.type === 'dir')
+                    .sort((a, b) => a.name.localeCompare(b.name));
+
+                if (folders.length === 0) {
+                    container.innerHTML = "<span class='loading'>Пока нет доступных упражнений.</span>";
+                    return;
+                }
+
+                // 3. Para cada pasta, vamos descobrir o ficheiro HTML lá dentro de forma assíncrona
+                for (const folder of folders) {
+                    try {
+                        const folderResponse = await fetch(folder.url);
+                        const folderItems = await folderResponse.json();
+
+                        // Procura o primeiro ficheiro .html dentro da subpasta (e ignora se houver algum index.html genérico)
+                        const htmlFile = folderItems.find(item => item.name.endsWith('.html'));
+
+                        if (htmlFile) {
+                            const link = document.createElement('a');
+                            
+                            // Cria o link direto via jsDelivr apontando para o ficheiro HTML específico dentro da subpasta
+                            link.href = `https://cdn.jsdelivr.net/gh/${username}/${repo}@main/${pastaAluno}/${folder.name}/${htmlFile.name}`;
+                            link.target = "_blank";
+                            
+                            // O texto do link será o nome do ficheiro HTML sem o ".html" no fim
+                            const nomeExercicio = htmlFile.name.replace('.html', '');
+                            link.innerHTML = `<span>${nomeExercicio}</span> <span>→</span>`;
+                            
+                            container.appendChild(link);
+                        }
+                    } catch (err) {
+                        console.error(`Erro ao carregar conteúdo da pasta ${folder.name}:`, err);
+                    }
+                }
+            } catch (e) {
+                document.getElementById('lista-exercicios').innerText = "Ошибка загрузки списка материалов.";
+            }
+        }
+        carregarMateriais();
+    </script>
+</body>
+</html>
