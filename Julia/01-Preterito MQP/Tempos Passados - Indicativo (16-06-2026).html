@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Os Tempos do Passado — Lição Prática</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1a1410;
+      --paper: #f5f0e8;
+      --gold: #b8962e;
+      --gold-light: #d4b05a;
+      --slate: #2e3a4a;
+      --dust: #c9bfb0;
+      --accent: #7a3b2e;
+      --line: rgba(184, 150, 46, 0.25);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Montserrat', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.75;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 80% 10%, rgba(184, 150, 46, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 90%, rgba(122, 59, 46, 0.05) 0%, transparent 50%);
+    }
+
+    /* ── DECORATIVE BORDER ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 12px;
+      border: 1px solid var(--line);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* ── ORNAMENTAL HEADER ── */
+    header {
+      text-align: center;
+      padding: 60px 40px 40px;
+      position: relative;
+    }
+
+    .khokhlov {
+      display: block;
+      width: 120px;
+      margin: 0 auto 24px;
+      opacity: 0.18;
+    }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: var(--slate);
+      line-height: 1.2;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px auto;
+      max-width: 360px;
+    }
+
+    .rule::before,
+    .rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .rule-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .subtitle {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-top: 8px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* ── EXPLAINER SECTION ── */
+    .explainer {
+      background: white;
+      border-left: 3px solid var(--gold);
+      padding: 36px 40px;
+      margin-bottom: 56px;
+      position: relative;
+      box-shadow: 4px 4px 0 rgba(184, 150, 46, 0.08);
+    }
+
+    .explainer::before {
+      content: '§';
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 4rem;
+      color: var(--line);
+      font-family: var(--serif);
+      line-height: 1;
+    }
+
+    .explainer h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-style: normal;
+    }
+
+    .explainer p {
+      font-size: 1.05rem;
+      color: var(--slate);
+      margin-bottom: 14px;
+    }
+
+    .formula-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 18px 24px;
+      margin: 22px 0;
+      text-align: center;
+    }
+
+    .formula-box .formula {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--slate);
+    }
+
+    .formula-box .formula span {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .formula-box .note {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-top: 8px;
+    }
+
+    .examples-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .ex-card {
+      background: linear-gradient(135deg, rgba(184, 150, 46, 0.04), transparent);
+      border: 1px solid var(--line);
+      padding: 14px 20px;
+      position: relative;
+    }
+
+    .ex-pt {
+      font-style: italic;
+      color: var(--slate);
+      font-size: 1rem;
+    }
+
+    .ex-pt mark {
+      background: none;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .ex-gloss {
+      font-family: var(--sans);
+      font-size: 10px;
+      color: var(--dust);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .task-num {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--slate);
+      border-bottom: 1px solid var(--line);
+      flex: 1;
+      padding-bottom: 6px;
+    }
+
+    .task-block {
+      margin-bottom: 64px;
+    }
+
+    .task-intro {
+      font-size: 0.95rem;
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--slate);
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+      padding-left: 16px;
+      border-left: 2px solid var(--dust);
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE AND OPTIONS ── */
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+
+    .tl-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dust);
+      padding-top: 2px;
+      min-width: 28px;
+    }
+
+    .tl-sent {
+      font-style: italic;
+      color: var(--slate);
+      font-size: 1.05rem;
+      flex: 1;
+      line-height: 1.5;
+    }
+
+    .tl-sent mark {
+      background: none;
+      color: var(--accent);
+      font-weight: 400;
+      text-decoration: underline;
+      text-decoration-color: rgba(122, 59, 46, 0.3);
+      text-underline-offset: 3px;
+    }
+
+    .blank-line {
+      border: none;
+      border-bottom: 1px solid var(--dust);
+      width: 100%;
+      margin: 8px 0 20px;
+      display: block;
+      height: 28px;
+    }
+
+    /* ── TEXT BLOCKS AND GAPS ── */
+    .text-block {
+      background: white;
+      padding: 32px 36px;
+      box-shadow: inset 0 0 0 1px var(--line);
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 2;
+      color: var(--slate);
+      position: relative;
+    }
+
+    .text-block::after {
+      content: '"';
+      position: absolute;
+      bottom: 16px;
+      right: 28px;
+      font-size: 5rem;
+      color: var(--line);
+      font-family: var(--serif);
+      line-height: 1;
+    }
+
+    .gap {
+      display: inline-block;
+      border-bottom: 1.5px solid var(--gold);
+      width: 150px;
+      margin: 0 4px;
+      vertical-align: bottom;
+      color: var(--gold);
+      font-style: normal;
+      font-size: 0.75rem;
+      font-family: var(--sans);
+      letter-spacing: 0.05em;
+      text-align: center;
+      position: relative;
+      top: -2px;
+    }
+
+    .verbs-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px dashed var(--line);
+    }
+
+    .verb-chip {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: lowercase;
+      color: var(--gold);
+      border: 1px solid var(--line);
+      padding: 4px 12px;
+      background: rgba(184, 150, 46, 0.04);
+      cursor: default;
+      transition: background 0.2s;
+    }
+
+    /* ── SCENARIO CARD ── */
+    .scenario-card {
+      background: var(--slate);
+      color: var(--paper);
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(ellipse at top right, rgba(184, 150, 46, 0.15), transparent 70%);
+    }
+
+    .scenario-card h3 {
+      font-size: 0.7rem;
+      font-family: var(--sans);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .scenario-text {
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.9);
+    }
+
+    .scenario-text strong {
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+
+    .writing-prompts {
+      margin-top: 28px;
+      border-top: 1px solid rgba(184, 150, 46, 0.2);
+      padding-top: 24px;
+    }
+
+    .writing-prompts p {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-bottom: 16px;
+    }
+
+    .prompt-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+
+    .prompt-item::before {
+      content: '→';
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .prompt-item span {
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(245, 240, 232, 0.8);
+      line-height: 1.5;
+    }
+
+    .writing-lines {
+      margin-top: 28px;
+    }
+
+    .writing-line {
+      border-bottom: 1px solid rgba(245, 240, 232, 0.15);
+      height: 36px;
+      margin-bottom: 4px;
+    }
+
+    /* ── TOGGLE CONJUGATION ── */
+    .toggle-btn {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dust);
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .toggle-btn:hover {
+      color: var(--gold);
+    }
+
+    .conj-table {
+      display: none;
+      margin-top: 14px;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .conj-table.visible {
+      display: table;
+    }
+
+    .conj-table td {
+      font-family: var(--sans);
+      font-size: 11px;
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      color: var(--slate);
+    }
+
+    .conj-table th {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(184, 150, 46, 0.05);
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      color: var(--slate);
+      text-align: left;
+    }
+
+    /* ── PRINT & ANIMATIONS ── */
+    @media print {
+      body::before {
+        display: none;
+      }
+
+      .no-print {
+        display: none;
+      }
+
+      .scenario-card {
+        background: var(--slate) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .task-block {
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .task-block:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .task-block:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .task-block:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .explainer {
+      animation: fadeUp 0.5s ease 0.05s both;
+    }
+  </style>
+
+  <script>
+    function toggleConj() {
+      var table = document.getElementById("conjTable");
+      if (table.classList.contains("visible")) {
+        table.classList.remove("visible");
+        document.getElementById("toggleBtn").innerText = "▸ Ver matriz dos tempos do passado";
+      } else {
+        table.classList.add("visible");
+        document.getElementById("toggleBtn").innerText = "◂ Ocultar matriz dos tempos";
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <header>
+    <svg class="khokhlov" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="20" y="20" width="80" height="80" stroke="#b8962e" stroke-width="1" />
+      <rect x="35" y="35" width="50" height="50" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="20" y1="60" x2="100" y2="60" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="60" y1="20" x2="60" y2="100" stroke="#b8962e" stroke-width="0.5" />
+      <circle cx="60" cy="60" r="12" stroke="#b8962e" stroke-width="1" />
+      <circle cx="60" cy="60" r="3" fill="#b8962e" />
+    </svg>
+
+    <p class="eyebrow">Português Europeu · Gramática Aplicada</p>
+    <h1>A Linha do Tempo<br><em>no Passado</em><br>do Indicativo</h1>
+    <div class="rule">
+      <div class="rule-diamond"></div>
+    </div>
+    <p class="subtitle">A narrativa e a perspetiva de uma arquiteta na gestão do tempo</p>
+  </header>
+
+  <main>
+
+    <div class="explainer">
+      <h2>A perspetiva temporal</h2>
+      <p>Para narrar no passado, cruzamos três perspetivas fundamentais: o ponto final da ação concluída, o cenário
+        contínuo da ação inacabada e a camada invisível do que aconteceu ainda antes.</p>
+
+      <div class="formula-box">
+        <div class="formula">
+          <span>Pretérito Perfeito Simples</span> (PPS) → Ação concluída e pontual.<br>
+          <span>Pretérito Imperfeito</span> → Cenário, hábito ou descrição no passado.<br>
+          <span>Pretérito Mais-que-Perfeito</span> → Ação anterior a outra ação passada.
+        </div>
+        <div class="note">Três perspetivas · Um único tecido narrativo</div>
+      </div>
+
+      <button class="toggle-btn no-print" id="toggleBtn" onclick="toggleConj()">▸ Ver matriz dos tempos do
+        passado</button>
+      <table class="conj-table" id="conjTable">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>Perf. Simples (desenhar)</th>
+            <th>Imperfeito (desenhar)</th>
+            <th>Mais-que-Perf. Comp. (desenhar)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Eu</td>
+            <td>desenhei</td>
+            <td>desenhava</td>
+            <td>tinha desenhado</td>
+          </tr>
+          <tr>
+            <td>Tu</td>
+            <td>desenhaste</td>
+            <td>desenhavas</td>
+            <td>tinhas desenhado</td>
+          </tr>
+          <tr>
+            <td>Ele / Ela</td>
+            <td>desenhou</td>
+            <td>desenhava</td>
+            <td>tinha desenhado</td>
+          </tr>
+          <tr>
+            <td>Nós</td>
+            <td>desenhámos</td>
+            <td>desenhávamos</td>
+            <td>tínhamos desenhado</td>
+          </tr>
+          <tr>
+            <td>Eles / Elas</td>
+            <td>desenharam</td>
+            <td>desenhavam</td>
+            <td>tinham desenhado</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="examples-grid" style="margin-top:24px;">
+        <div class="ex-card">
+          <div class="ex-pt">Ontem, a arquiteta <mark>reuniu</mark> com a equipa técnica no estaleiro.</div>
+          <div class="ex-gloss">PPS · Ação pontual, localizada e completamente finalizada no passado.</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-pt">Naquela época, ela <mark>analisava</mark> os mapas em papel com extrema paciência.</div>
+          <div class="ex-gloss"> Pretérito Imperfeito· Um processo contínuo, uma descrição ou um hábito antigo.
+          </div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-pt">Quando o cliente chegou, ela já <mark>tinha alterado</mark> a planta do edifício.</div>
+          <div class="ex-gloss">Pretérito Mais-que-Perfeito · O traço na planta ocorreu antes do momento em que o
+            cliente chegou.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa I</span>
+        <h2>O Registo do Esboço</h2>
+      </div>
+      <p class="task-intro">
+        Imagine que assume o papel de uma arquiteta encarregue da recuperação de um antigo teatro na
+        cidade do Porto. Escreva um pequeno parágrafo narrativo (de 5 a 8 linhas) sobre a sua primeira manhã de vistoria
+        ao espaço abandonado.
+      </p>
+
+      <div class="scenario-card">
+        <h3>Critérios obrigatórios de redação</h3>
+        <div class="scenario-text">
+          O seu texto deve integrar harmoniosamente a dinâmica da obra. Garanta o uso de:
+          <br>
+          • Pelo menos <strong>duas ações</strong> no Pretérito Perfeito Simples (ações claras e pontuais).<br>
+          • Pelo menos <strong>duas descrições</strong> no Pretérito Imperfeito (caracterização do espaço ou
+          hábitos).<br>
+          • Pelo menos <strong>uma situação</strong> no Pretérito Mais-que-Perfeito Composto (um facto anterior).
+          <div class="writing-lines">
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-block">
+        <div class="section-header">
+          <span class="task-num">Tarefa II</span>
+          <h2>Memórias de um Palacete no Chiado</h2>
+        </div>
+        <p class="task-intro">
+          Complete o fragmento do relatório técnico de restauro escrito por uma arquiteta.
+          Conjugue os verbos fornecidos na paleta abaixo nos tempos adequados: Pretérito Perfeito Simples, Imperfeito ou
+          Mais-que-Perfeito do Indicativo, conforme o contexto exigir.
+        </p>
+
+        <div class="text-block">
+          Naquela manhã de inverno, o vento <span class="gap"></span>
+          com força pelas janelas partidas do palacete. Quando eu finalmente
+          <span class="gap"></span>
+          ao piso superior, notei que a infiltração de água já
+          <span class="gap"></span>
+          grande parte dos estuques originais do teto. Enquanto eu
+          <span class="gap"></span>
+          as fissuras na parede principal, o mestre de obras
+          <span class="gap"></span>
+          -me da cave. Ele
+          <span class="gap"></span>
+          os azulejos setecentistas que o proprietário anterior
+          <span class="gap"></span>
+          durante as obras de remodelação da década de oitenta.
+        </div>
+
+        <div class="verbs-palette no-print">
+          <span class="verb-chip">soprar</span>
+          <span class="verb-chip">subir</span>
+          <span class="verb-chip">destruir</span>
+          <span class="verb-chip">fotografar</span>
+          <span class="verb-chip">chamar</span>
+          <span class="verb-chip">esconder</span>
+          <span class="verb-chip">encontrar</span>
+        </div>
+
+        <div style="margin-top: 18px;">
+          <small
+            style="font-family:var(--sans);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);">Espaço
+            reservado para notas de conjugação ou rascunho:</small>
+          <span class="blank-line"></span>
+          <span class="blank-line"></span>
+        </div>
+      </div>
+
+      <div class="task-block">
+        <div class="section-header">
+          <span class="task-num">Tarefa III</span>
+          <h2>A Escolha do Alçado Temporal</h2>
+        </div>
+        <p class="task-intro">
+          Escolha os tempos. Analise a relação cronológica nas frases estruturadas pela arquiteta coordenadora.
+          Sublinhe
+          ou selecione a opção correta entre as três formas verbais a negrito e apresente uma breve justificação
+          gramatical.
+        </p>
+
+        <div class="timeline-item">
+          <span class="tl-label">1.</span>
+          <div class="tl-sent">
+            «No ano passado, o atelier <strong>[aprovou / aprovava / tinha aprovado]</strong> três novos projetos de
+            habitação sustentável em Braga.»
+          </div>
+        </div>
+        <div style="padding-left:48px; margin-bottom:24px;">
+          <small
+            style="font-family:var(--sans);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);">Tempo
+            escolhido e justificação lógica:</small>
+          <span class="blank-line"></span>
+        </div>
+
+        <div class="timeline-item">
+          <span class="tl-label">2.</span>
+          <div class="tl-sent">
+            «Quando o engenheiro pediu a revisão das fundações, a arquiteta já <strong>[concluiu / concluía / tinha
+              concluído]</strong> a reconfiguração da fachada.»
+          </div>
+        </div>
+        <div style="padding-left:48px; margin-bottom:24px;">
+          <small
+            style="font-family:var(--sans);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);">Tempo
+            escolhido e justificação lógica:</small>
+          <span class="blank-line"></span>
+        </div>
+
+        <div class="timeline-item">
+          <span class="tl-label">3.</span>
+          <div class="tl-sent">
+            «Durante o século passado, os projetistas <strong>[desenharam / desenhavam / tinham
+              desenhado]</strong>
+            sempre em papel vegetal.»
+          </div>
+        </div>
+        <div style="padding-left:48px; margin-bottom:8px;">
+          <small
+            style="font-family:var(--sans);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);">Tempo
+            escolhido e justificação lógica:</small>
+          <span class="blank-line"></span>
+        </div>
+      </div>
+
+  </main>
+
+</body>
+
+</html>
