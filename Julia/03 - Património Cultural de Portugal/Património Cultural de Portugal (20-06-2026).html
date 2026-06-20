@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tradições Ancestrais de Portugal — Lição Prática</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1a1410;
+      --paper: #f5f0e8;
+      --gold: #b8962e;
+      --gold-light: #d4b05a;
+      --slate: #2e3a4a;
+      --dust: #c9bfb0;
+      --accent: #7a3b2e;
+      --line: rgba(184, 150, 46, 0.25);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Montserrat', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.75;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 80% 10%, rgba(184, 150, 46, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 90%, rgba(122, 59, 46, 0.05) 0%, transparent 50%);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 12px;
+      border: 1px solid var(--line);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 40px 40px;
+      position: relative;
+    }
+
+    .khokhlov {
+      display: block;
+      width: 120px;
+      margin: 0 auto 24px;
+      opacity: 0.18;
+    }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: var(--slate);
+      line-height: 1.2;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px auto;
+      max-width: 360px;
+    }
+
+    .rule::before,
+    .rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .rule-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .subtitle {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-top: 8px;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .explainer {
+      background: white;
+      border-left: 3px solid var(--gold);
+      padding: 36px 40px;
+      margin-bottom: 56px;
+      position: relative;
+      box-shadow: 4px 4px 0 rgba(184, 150, 46, 0.08);
+    }
+
+    .explainer::before {
+      content: '§';
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 4rem;
+      color: var(--line);
+      font-family: var(--serif);
+      line-height: 1;
+    }
+
+    .explainer h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-style: normal;
+    }
+
+    .explainer p {
+      font-size: 1.05rem;
+      color: var(--slate);
+      margin-bottom: 14px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .task-num {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--slate);
+      border-bottom: 1px solid var(--line);
+      flex: 1;
+      padding-bottom: 6px;
+    }
+
+    .task-block {
+      margin-bottom: 64px;
+    }
+
+    .task-intro {
+      font-size: 0.95rem;
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--slate);
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+      padding-left: 16px;
+      border-left: 2px solid var(--dust);
+      line-height: 1.6;
+    }
+
+    .text-block-wrapper {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .text-block {
+      background: white;
+      padding: 32px 36px;
+      box-shadow: inset 0 0 0 1px var(--line);
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--slate);
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      right: 1px;
+      bottom: 1px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease-in-out;
+      z-index: 10;
+    }
+
+    .text-block.showing-image .gallery-overlay {
+      opacity: 1;
+    }
+
+    .thumbnail-carousel {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .thumb-wrapper {
+      width: 90px;
+      height: 60px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      padding: 3px;
+      background: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .thumb-wrapper:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold);
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.2s ease;
+    }
+
+    .thumb-wrapper:hover .thumb-img {
+      filter: grayscale(0%);
+    }
+
+    .gallery-source {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dust);
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .gallery-source a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gold);
+      transition: color 0.2s ease;
+    }
+
+    .gallery-source a:hover {
+      color: var(--slate);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+
+    .tl-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dust);
+      padding-top: 4px;
+      min-width: 28px;
+    }
+
+    .tl-sent {
+      font-style: normal;
+      color: var(--slate);
+      font-size: 1.05rem;
+      flex: 1;
+      line-height: 1.6;
+    }
+
+    .options-list {
+      margin-top: 8px;
+      padding-left: 20px;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--slate);
+    }
+
+    .options-list div {
+      margin-bottom: 6px;
+    }
+
+    .scenario-card {
+      background: var(--slate);
+      color: var(--paper);
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(ellipse at top right, rgba(184, 150, 46, 0.15), transparent 70%);
+    }
+
+    .scenario-card h3 {
+      font-size: 0.7rem;
+      font-family: var(--sans);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .scenario-text {
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.9);
+    }
+
+    .writing-lines {
+      margin-top: 28px;
+    }
+
+    .writing-line {
+      border-bottom: 1px solid rgba(245, 240, 232, 0.15);
+      height: 36px;
+      margin-bottom: 4px;
+    }
+
+    .audio-box {
+      border: 1px dashed var(--gold);
+      background: rgba(184, 150, 46, 0.03);
+      padding: 30px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .audio-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .audio-instructions {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    @media print {
+      body::before {
+        display: none;
+      }
+
+      .scenario-card {
+        background: var(--slate) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .task-block {
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .task-block:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .task-block:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .task-block:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .explainer {
+      animation: fadeUp 0.5s ease 0.05s both;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <svg class="khokhlov" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="20" y="20" width="80" height="80" stroke="#b8962e" stroke-width="1" />
+      <rect x="35" y="35" width="50" height="50" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="20" y1="60" x2="100" y2="60" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="60" y1="20" x2="60" y2="100" stroke="#b8962e" stroke-width="0.5" />
+      <circle cx="60" cy="60" r="12" stroke="#b8962e" stroke-width="1" />
+      <circle cx="60" cy="60" r="3" fill="#b8962e" />
+    </svg>
+
+    <p class="eyebrow">Português Europeu · Património Imaterial</p>
+    <h1>Património<br><em>Cultural</em><br>de Portugal</h1>
+    <div class="rule">
+      <div class="rule-diamond"></div>
+    </div>
+    <p class="subtitle">Uma exploração das raízes autênticas da identidade portuguesa</p>
+  </header>
+
+  <main>
+
+    <div class="explainer">
+      <h2>O Portugal Profundo e Genuíno</h2>
+      <p>Longe das rotas do turismo de massa, Portugal conserva tradições milenares ligadas à terra e aos ciclos da
+        nature. Hoje, vamos descobrir a arte da pedra e a energia dos rituais de inverno transmontanos.</p>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa I</span>
+        <h2>Os Muros de Pedra Seca e os Caretos de Podence</h2>
+      </div>
+      <p class="task-intro">
+        Leia com atenção o texto sobre duas grandes tradições portuguesas classificadas pela UNESCO. De seguida,
+        complete as cinco frases escolhendo a continuação correta. Passe o rato pelas imagens pequenas para ilustrar o
+        texto.
+      </p>
+
+      <div class="text-block-wrapper">
+        <div class="thumbnail-carousel" style="margin-top: 0; margin-bottom: 10px;">
+          <div class="thumb-wrapper">
+            <img src="https://www.regiaodeleiria.pt/wp-content/uploads/2026/06/p17_pombal_muros-pedra-seca.jpeg"
+              data-large="https://www.regiaodeleiria.pt/wp-content/uploads/2026/06/p17_pombal_muros-pedra-seca.jpeg"
+              class="thumb-img" alt="Muros de Pedra Seca Pombal">
+          </div>
+          <div class="thumb-wrapper">
+            <img src="muros1.png" data-large="muros1.png" class="thumb-img" alt="Muros de Pedra Seca 1">
+          </div>
+          <div class="thumb-wrapper">
+            <img src="muros2.png" data-large="muros2.png" class="thumb-img" alt="Muros de Pedra Seca 2">
+          </div>
+        </div>
+
+        <div class="gallery-source" style="text-align: left; margin-top: 0; margin-bottom: 16px;">
+          Fonte das imagens: <a href="https://www.regiaodeleiria.pt/" target="_blank"
+            rel="noopener">regiaodeleiria.pt</a> e Associação Para O Desenvolvimento da Viticultura Duriense |
+          Documento:
+          <a href="https://www.advid.pt/uploads/DOCUMENTOS/Subcategorias/manuais/Guia_muros-Pedra-Seca.pdf"
+            target="_blank" rel="noopener">Guia de Construção de Muros de Pedra Seca (ADVID)</a>
+        </div>
+
+        <div class="text-block" id="textBlock">
+          <div class="gallery-overlay" id="galleryOverlay"></div>
+          <p style="margin-bottom: 16px;">
+            Em quase todas as regiões rurais de Portugal, existem paisagens impressionantes moldadas por muros de "pedra
+            seca".
+            Estes muros são construídos de forma artesanal, apenas encaixando as pedras com paciência, sem usar cimento
+            ou argamassa. Eles são fundamentais para dividir os campos, proteger a terra contra a erosão e criar
+            caminhos para os pastores. É um saber transmitido de pais para filhos.
+          </p>
+          <p>
+            No norte, na pacata aldeia de Podence, acontece uma das tradições mais fascinantes e misteriosas da
+            Europa: os Caretos. Durante o inverno e o Carnaval, os rapazes da aldeia vestem fatos coloridos feitos de
+            lã, usam máscaras de latão ou couro e chocalhos na cintura. Eles correm pelas ruas com muita energia, saltam
+            e entram nas casas das pessoas. É um ritual pagão antigo que celebra o fim do inverno e o renascimento da
+            natureza.
+          </p>
+        </div>
+
+        <div class="thumbnail-carousel">
+          <div class="thumb-wrapper">
+            <img src="https://www.caretosdepodence.pt/sites/default/files/gbb-uploads/imagem2-extqmd.jpg"
+              data-large="https://www.caretosdepodence.pt/sites/default/files/gbb-uploads/imagem2-extqmd.jpg"
+              class="thumb-img" alt="Careto de Podence Ritual">
+          </div>
+          <div class="thumb-wrapper">
+            <img src="https://www.caretosdepodence.pt/sites/default/files/gbb-uploads/imagem1-1omda9.jpg"
+              data-large="https://www.caretosdepodence.pt/sites/default/files/gbb-uploads/imagem1-1omda9.jpg"
+              class="thumb-img" alt="Caretos em Festa">
+          </div>
+          <div class="thumb-wrapper">
+            <img
+              src="https://www.caretosdepodence.pt/sites/default/files/styles/imagem_popup_1280x800_/public/gallery/A.jpg"
+              data-large="https://www.caretosdepodence.pt/sites/default/files/styles/imagem_popup_1280x800_/public/gallery/A.jpg"
+              class="thumb-img" alt="Máscara Tradicional">
+          </div>
+          <div class="thumb-wrapper">
+            <img
+              src="https://www.caretosdepodence.pt/sites/default/files/styles/imagem_popup_1280x800_/public/gallery/Rua.jpg"
+              data-large="https://www.caretosdepodence.pt/sites/default/files/styles/imagem_popup_1280x800_/public/gallery/Rua.jpg"
+              class="thumb-img" alt="Caretos na Rua de Podence">
+          </div>
+        </div>
+
+        <div class="gallery-source">
+          Fonte das imagens: <a href="https://www.caretosdepodence.pt/" target="_blank" rel="noopener">Associação dos
+            Caretos de Podence</a>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="tl-label">1.</span>
+        <div class="tl-sent">
+          A construção dos muros de pedra seca em Portugal...
+          <div class="options-list">
+            <div>[ ] A) utiliza betão moderno para garantir que as pedras ficam coladas.</div>
+            <div>[ ] B) baseia-se unicamente no encaixe manual e inteligente das pedras.</div>
+            <div>[ ] C) é feita rapidamente por grandes máquinas industriais nas cidades.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="tl-label">2.</span>
+        <div class="tl-sent">
+          No meio rural, a principal utilidade destes muros é...
+          <div class="options-list">
+            <div>[ ] A) delimitar terrenos, evitar a erosão da terra e ajudar os pastores.</div>
+            <div>[ ] B) criar decorações coloridas para os festivais de verão.</div>
+            <div>[ ] C) impedir a entrada de luz solar nos campos de cultivo.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="tl-label">3.</span>
+        <div class="tl-sent">
+          Os Caretos são personagens tradicionais que aparecem...
+          <div class="options-list">
+            <div>[ ] A) nas praias do sul durante os meses quentes de agosto.</div>
+            <div>[ ] B) nas grandes salas de teatro da cidade di Lisboa.</div>
+            <div>[ ] C) na aldeia de Podence durante o inverno e o Carnaval.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="tl-label">4.</span>
+        <div class="tl-sent">
+          O traje típico de um Careto de Podence inclui...
+          <div class="options-list">
+            <div>[ ] A) roupas de seda preta and chapéus modernos de feltro.</div>
+            <div>[ ] B) fatos coloridos de lã, máscaras e chocalhos.</div>
+            <div>[ ] C) disfarces de figuras da televisão contemporânea.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="tl-label">5.</span>
+        <div class="tl-sent">
+          O ritual antigo dos Caretos serve originalmente para...
+          <div class="options-list">
+            <div>[ ] A) festejar a despedida do inverno e a chegada de um novo ciclo da natureza.</div>
+            <div>[ ] B) ensinar as crianças a cantar músicas tradicionais na igreja.</div>
+            <div>[ ] C) vender fatos de lã para os mercados internacionais.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa II</span>
+        <h2>Correspondência com Perspetiva Cultural</h2>
+      </div>
+      <p class="task-intro">
+        Um amigo do Brasil enviou-lhe uma mensagem porque quer conhecer as raízes folclóricas de Portugal. Escreva uma
+        resposta curta (<strong>entre 60 a 80 palavras</strong>) a falar sobre o mistério dos Caretos ou a beleza dos
+        muros de pedra.
+      </p>
+
+      <div class="scenario-card">
+        <h3>Espaço de Redação</h3>
+        <div class="scenario-text">
+          Apresente os factos e as suas opiniões. Escolha palavras simples, mas genuínas, para descrever as tradições.
+          <div class="writing-lines">
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa III</span>
+        <h2>Expressão Oral: A Força da Tradição Viva</h2>
+      </div>
+      <p class="task-intro">
+        A UNESCO protege estas manifestações porque elas mantêm viva a alma de um povo. Grave um pequeno áudio
+        onde partilha a sua opinião sobre o valor destas heranças.
+      </p>
+
+      <div class="audio-box">
+        <div class="audio-icon">🎙️</div>
+        <div class="audio-instructions">
+          <strong>Guião para a Gravação (1 a 2 minutos):</strong><br>
+          1. Indique qual das duas realidades (a pedra seca ou as máscaras dos Caretos) lhe parece mais
+          impressionante.<br>
+          2. Explique por que razão considera importante preservar tradições que não dependem da tecnologia.<br>
+          3. Pode usar expressões como: <em>"Eu acho este ritual muito...", "O trabalho da pedra é
+            bonito porque...", "Na minha opinião, a cultura de um país...", entre outras</em>.
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const thumbs = document.querySelectorAll('.thumb-img');
+      const overlay = document.getElementById('galleryOverlay');
+      const textBlock = document.getElementById('textBlock');
+
+      thumbs.forEach(thumb => {
+        thumb.addEventListener('mouseenter', function () {
+          const largeUrl = this.getAttribute('data-large');
+          overlay.style.backgroundImage = `url('${largeUrl}')`;
+          textBlock.classList.add('showing-image');
+        });
+
+        thumb.addEventListener('mouseleave', function () {
+          textBlock.classList.remove('showing-image');
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>
