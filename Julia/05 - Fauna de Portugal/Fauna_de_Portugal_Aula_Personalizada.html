@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fauna de Portugal — Lição Prática Personalizada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1a1410;
+      --paper: #f5f0e8;
+      --gold: #b8962e;
+      --gold-light: #d4b05a;
+      --slate: #2e3a4a;
+      --dust: #c9bfb0;
+      --accent: #7a3b2e;
+      --line: rgba(184, 150, 46, 0.25);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Montserrat', sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 18px;
+      line-height: 1.75;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 80% 10%, rgba(184, 150, 46, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 90%, rgba(122, 59, 46, 0.05) 0%, transparent 50%);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 12px;
+      border: 1px solid var(--line);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 40px 40px;
+      position: relative;
+    }
+
+    .khokhlov {
+      display: block;
+      width: 120px;
+      margin: 0 auto 24px;
+      opacity: 0.18;
+    }
+
+    .eyebrow {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: var(--slate);
+      line-height: 1.2;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--gold);
+    }
+
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 28px auto;
+      max-width: 360px;
+    }
+
+    .rule::before,
+    .rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .rule-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .subtitle {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dust);
+      margin-top: 8px;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .explainer {
+      background: white;
+      border-left: 3px solid var(--gold);
+      padding: 36px 40px;
+      margin-bottom: 56px;
+      position: relative;
+      box-shadow: 4px 4px 0 rgba(184, 150, 46, 0.08);
+    }
+
+    .explainer::before {
+      content: '§';
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-size: 4rem;
+      color: var(--line);
+      font-family: var(--serif);
+      line-height: 1;
+    }
+
+    .explainer h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      margin-bottom: 18px;
+      font-style: normal;
+    }
+
+    .explainer p {
+      font-size: 1.05rem;
+      color: var(--slate);
+      margin-bottom: 14px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .task-num {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--slate);
+      border-bottom: 1px solid var(--line);
+      flex: 1;
+      padding-bottom: 6px;
+    }
+
+    .task-block {
+      margin-bottom: 64px;
+    }
+
+    .task-intro {
+      font-size: 0.95rem;
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--slate);
+      letter-spacing: 0.02em;
+      margin-bottom: 28px;
+      padding-left: 16px;
+      border-left: 2px solid var(--dust);
+      line-height: 1.6;
+    }
+
+    .text-block-wrapper {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .text-block {
+      background: white;
+      padding: 32px 36px;
+      box-shadow: inset 0 0 0 1px var(--line);
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--slate);
+      position: relative;
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      right: 1px;
+      bottom: 1px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease-in-out;
+      z-index: 10;
+    }
+
+    .text-block.showing-image .gallery-overlay {
+      opacity: 1;
+    }
+
+    .thumbnail-carousel {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .thumb-wrapper {
+      width: 90px;
+      height: 60px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      padding: 3px;
+      background: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .thumb-wrapper:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold);
+    }
+
+    .thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.2s ease;
+    }
+
+    .thumb-wrapper:hover .thumb-img {
+      filter: grayscale(0%);
+    }
+
+    .gallery-source {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dust);
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .gallery-source a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--gold);
+      transition: color 0.2s ease;
+    }
+
+    .gallery-source a:hover {
+      color: var(--slate);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+
+    .tl-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dust);
+      padding-top: 4px;
+      min-width: 28px;
+    }
+
+    .tl-sent {
+      font-style: normal;
+      color: var(--slate);
+      font-size: 1.05rem;
+      flex: 1;
+      line-height: 1.6;
+    }
+
+    .options-list {
+      margin-top: 8px;
+      padding-left: 20px;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: var(--slate);
+    }
+
+    .options-list div {
+      margin-bottom: 6px;
+    }
+
+    .scenario-card {
+      background: var(--slate);
+      color: var(--paper);
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(ellipse at top right, rgba(184, 150, 46, 0.15), transparent 70%);
+    }
+
+    .scenario-card h3 {
+      font-size: 0.7rem;
+      font-family: var(--sans);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .scenario-text {
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.9);
+    }
+
+    .writing-lines {
+      margin-top: 28px;
+    }
+
+    .writing-line {
+      border-bottom: 1px solid rgba(245, 240, 232, 0.15);
+      height: 36px;
+      margin-bottom: 4px;
+    }
+
+    .audio-box {
+      border: 1px dashed var(--gold);
+      background: rgba(184, 150, 46, 0.03);
+      padding: 30px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .audio-icon {
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .audio-instructions {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    @media print {
+      body::before {
+        display: none;
+      }
+
+      .scenario-card {
+        background: var(--slate) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .task-block {
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .task-block:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .task-block:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .task-block:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .explainer {
+      animation: fadeUp 0.5s ease 0.05s both;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <svg class="khokhlov" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="20" y="20" width="80" height="80" stroke="#b8962e" stroke-width="1" />
+      <rect x="35" y="35" width="50" height="50" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="20" y1="60" x2="100" y2="60" stroke="#b8962e" stroke-width="0.5" />
+      <line x1="60" y1="20" x2="60" y2="100" stroke="#b8962e" stroke-width="0.5" />
+      <circle cx="60" cy="60" r="12" stroke="#b8962e" stroke-width="1" />
+      <circle cx="60" cy="60" r="3" fill="#b8962e" />
+    </svg>
+
+    <p class="eyebrow">Português Europeu · Fauna e Conservação de Portugal</p>
+    <h1>Fauna<br><em>de Portugal</em></h1>
+    <div class="rule">
+      <div class="rule-diamond"></div>
+    </div>
+    <p class="subtitle">Das espécies antigas aos desafios de hoje</p>
+  </header>
+
+  <main>
+
+    <div class="explainer">
+      <h2>Uma paisagem que mudou</h2>
+      <p>A fauna portuguesa conta uma história de mudanças profundas. Ao longo dos séculos, algumas espécies desapareceram ou ficaram muito reduzidas, enquanto outras se adaptaram a novas paisagens. Hoje, conservar a biodiversidade implica compreender o que aconteceu, quais foram as causas e que tentativas de restauro estão a ser feitas.</p>
+      <p>Vamos observar espécies emblemáticas, perceber o papel da caça, da perda de habitat e de outras pressões humanas, conhecer projetos de recuperação e analisar um problema muito atual: a expansão do javali e os conflitos que pode criar, incluindo a presença destes animais em zonas urbanas e costeiras.</p>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa I</span>
+        <h2>Espécies que contam a história de Portugal</h2>
+      </div>
+      <p class="task-intro">
+        Leia o texto com atenção. Passe o rato pelas imagens para explorar diferentes espécies. Depois, escolha a continuação que faz sentido e justifique as suas respostas.
+      </p>
+
+      <div class="text-block-wrapper">
+        <div class="thumbnail-carousel" style="margin-top: 0; margin-bottom: 10px;">
+          <div class="thumb-wrapper"><img src="lobo_iberico.jpg" data-large="lobo_iberico.jpg" class="thumb-img" alt="Lobo-ibérico"></div>
+          <div class="thumb-wrapper"><img src="lince_iberico.jpg" data-large="lince_iberico.jpg" class="thumb-img" alt="Lince-ibérico"></div>
+          <div class="thumb-wrapper"><img src="urso_portugal.jpg" data-large="urso_portugal.jpg" class="thumb-img" alt="Urso-pardo histórico"></div>
+          <div class="thumb-wrapper"><img src="aguia_imperial.jpg" data-large="aguia_imperial.jpg" class="thumb-img" alt="Águia-imperial-ibérica"></div>
+          <div class="thumb-wrapper"><img src="abutre_preto.jpg" data-large="abutre_preto.jpg" class="thumb-img" alt="Abutre-preto"></div>
+          <div class="thumb-wrapper"><img src="javali.jpg" data-large="javali.jpg" class="thumb-img" alt="Javali"></div>
+          <div class="thumb-wrapper"><img src="javalis_setubal.jpg" data-large="javalis_setubal.jpg" class="thumb-img" alt="Javalis em zona costeira"></div>
+        </div>
+
+        
+
+        <div class="text-block" id="textBlock">
+          <div class="gallery-overlay" id="galleryOverlay"></div>
+          <p style="margin-bottom: 16px;">
+            Durante séculos, a paisagem portuguesa foi diferente da que conhecemos hoje. O
+            <strong>lobo-ibérico</strong> continuou presente em algumas regiões, mas perdeu território e foi perseguido.
+            O <strong>lince-ibérico</strong>, associado sobretudo ao sul da Península, sofreu com a perda de habitat,
+            a diminuição das presas e a fragmentação das populações.
+          </p>
+          <p style="margin-bottom: 16px;">
+            Outras espécies desapareceram de Portugal em tempos históricos. O <strong>urso-pardo</strong>, por exemplo,
+            deixou de fazer parte da fauna portuguesa. A transformação da paisagem, a caça e a redução de habitat
+            contribuíram para estas perdas. Entretanto, algumas aves de rapina enfrentaram problemas semelhantes,
+            mas beneficiaram de proteção, recuperação de habitat e programas de conservação.
+          </p>
+          <p style="margin-bottom: 16px;">
+            O <strong>lince-ibérico</strong> tornou-se um caso particularmente interessante de restauro da natureza:
+            a recuperação de populações exige habitat adequado, alimento suficiente, monitorização e colaboração
+            entre instituições. O objetivo não é simplesmente “trazer um animal de volta”, mas reconstruir condições
+            ecológicas para permitir a sua sobrevivência.
+          </p>
+          <p>
+            Hoje existe também um desafio diferente. O <strong>javali</strong> aumentou muito em várias zonas e pode
+            aproximar-se de áreas urbanas, estradas, campos agrícolas e zonas costeiras. Em Setúbal e noutras cidades
+            portuguesas, há episódios de javalis junto de espaços frequentados por pessoas. O problema envolve
+            segurança, agricultura, gestão de resíduos, equilíbrio ecológico e a necessidade de encontrar formas
+            responsáveis de gerir as populações.
+          </p>
+        </div>
+
+        
+      </div>
+
+      <div class="timeline-item"><span class="tl-label">1.</span><div class="tl-sent">
+            Uma das razões para a redução do lince-ibérico foi...
+            <div class="options-list"><div>A) a perda de habitat e de presas.</div><div>B) o excesso de alimento.</div><div>C) a construção de ninhos.</div></div>
+          </div></div>
+          <div class="timeline-item"><span class="tl-label">2.</span><div class="tl-sent">
+            O urso-pardo...
+            <div class="options-list"><div>A) continua a ser uma espécie comum em Portugal.</div><div>B) desapareceu da fauna portuguesa em tempos históricos.</div><div>C) foi introduzido recentemente nas praias.</div></div>
+          </div></div>
+          <div class="timeline-item"><span class="tl-label">3.</span><div class="tl-sent">
+            A recuperação de uma espécie exige...
+            <div class="options-list"><div>A) apenas libertar animais.</div><div>B) habitat, alimento, monitorização e gestão.</div><div>C) retirar todas as pessoas da região.</div></div>
+          </div></div>
+          <div class="timeline-item"><span class="tl-label">4.</span><div class="tl-sent">
+            O aumento dos javalis pode criar problemas relacionados com...
+            <div class="options-list"><div>A) segurança, agricultura e equilíbrio ecológico.</div><div>B) apenas o turismo internacional.</div><div>C) apenas a pesca marítima.</div></div>
+          </div></div>
+          <div class="timeline-item"><span class="tl-label">5.</span><div class="tl-sent">
+            Qual é a ideia mais importante do texto?
+            <div class="options-list"><div>A) A conservação exige compreender as causas dos problemas.</div><div>B) Todas as espécies antigas devem ser reintroduzidas.</div><div>C) Os javalis só existem em Setúbal.</div></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa II</span>
+        <h2>O que aconteceu? O que era habitual?</h2>
+      </div>
+      <p class="task-intro">
+        Complete as frases com o verbo entre parênteses. Escolha entre pretérito perfeito e imperfeito e pense na diferença entre acontecimento concluído, hábito e contexto.
+
+      <div class="text-block" style="min-height: auto; font-style: normal;">
+          <div class="timeline-item"><span class="tl-label">1.</span><div class="tl-sent">No passado, muitas pessoas ______ o lobo por medo. (perseguir)</div></div>
+          <div class="timeline-item"><span class="tl-label">2.</span><div class="tl-sent">Ontem eu ______ um javali junto de uma estrada. (ver)</div></div>
+          <div class="timeline-item"><span class="tl-label">3.</span><div class="tl-sent">Quando era criança, eu ______ documentários sobre animais. (ver)</div></div>
+          <div class="timeline-item"><span class="tl-label">4.</span><div class="tl-sent">Os técnicos ______ a população antes de tomar decisões. (monitorizar)</div></div>
+          <div class="timeline-item"><span class="tl-label">5.</span><div class="tl-sent">Enquanto os investigadores ______ os animais, recolhiam dados. (observar)</div></div>
+          <div class="timeline-item"><span class="tl-label">6.</span><div class="tl-sent">O projeto de conservação ______ melhores condições para a espécie. (criar)</div></div>
+        </div>
+
+        <div class="scenario-card" style="margin-top: 28px;">
+        <h3>Palavras em destaque</h3>
+        <div class="scenario-text">
+          perseguir · ver · monitorizar · observar · criar · recuperar
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa III</span>
+        <h2>Debate: conservar, restaurar e gerir</h2>
+      </div>
+      <p class="task-intro">
+        Imagine que participa numa reunião sobre conservação da natureza. Apresente uma posição fundamentada sobre uma espécie portuguesa, distinguindo recuperação de espécies e gestão de conflitos com animais.
+      </p>
+
+      <div class="scenario-card">
+        <h3>Escolha pessoal</h3>
+        <div class="scenario-text">
+          Escolha um animal que faz recordar a infância.
+          Explique o que gosta nele e se existe em portugal.
+          <br><br>
+          Pode começar assim: “Eu gostava de…”, “Quando via…”, “Eu pensava que…”, “Agora penso/sei que…”.
+          <div class="writing-lines">
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="audio-box">
+        <div class="audio-icon">🎙️</div>
+        <div class="audio-instructions">
+          <strong>Guião para a Conversa (2 a 3 minutos):</strong><br>
+          1. Diga qual o animal que escolheu.<br>
+          2. Explique porque lhe parece bonito ou especial.<br>
+          3. Conte uma pequena experiência: “Eu vi…”, “Eu fiz…”, “Eu pensei…”, “Eu gostava…”..<br>
+          4. Diga se acha que a espécie está em perigo e/ou se é importante protegê-la.<br>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-block">
+      <div class="section-header">
+        <span class="task-num">Tarefa IV</span>
+        <h2>Desafio de investigação</h2>
+      </div>
+      <p class="task-intro">Escolha uma espécie. Construa uma pequena ficha com passado, problema, resposta de conservação e desafio atual.</p>
+      <div class="scenario-card">
+        <h3>Ficha de especialista</h3>
+        <div class="scenario-text">
+          Espécie: __________________________<br><br>
+          O que mudou? _______________________<br><br>
+          Causas possíveis: ____________________<br><br>
+          Medida de conservação: _______________<br><br>
+          Risco ou conflito atual: _______________<br><br>
+          A minha proposta: _____________________
+        </div>
+      </div>
+    </div>
+
+    <div class="explainer">
+      <h2>Autoavaliação</h2>
+      <p>Consigo explicar a diferença entre desaparecimento, declínio populacional, recuperação e reintrodução?</p>
+      <p>Consigo explicar por que razão os javalis podem aproximar-se das cidades e quais os problemas associados?</p>
+      <p>Consigo distinguir entre espécies que desapareceram, espécies ameaçadas e espécies em expansão?</p>
+    </div>
+
+  </main>
+
+  <script>
+    document.querySelectorAll('.thumb-wrapper').forEach(function (thumb) {
+      thumb.addEventListener('mouseenter', function () {
+        var img = thumb.querySelector('img');
+        var largeSrc = img.getAttribute('data-large');
+        var overlay = document.getElementById('galleryOverlay');
+        var textBlock = document.getElementById('textBlock');
+        overlay.style.backgroundImage = 'url(' + largeSrc + ')';
+        textBlock.classList.add('showing-image');
+      });
+      thumb.addEventListener('mouseleave', function () {
+        document.getElementById('textBlock').classList.remove('showing-image');
+      });
+    });
+  </script>
+
+</html>
